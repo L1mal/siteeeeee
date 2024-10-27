@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envelope de Surpresa</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Fundo com imagem ou gif personalizado */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('caminho/para/seu/arquivo.gif') no-repeat center center fixed; /* Insira o caminho do seu arquivo GIF */
+            background-size: cover; /* Ajusta o GIF para cobrir toda a tela */
+            background-color: lightpink;
+            z-index: -1;
+        }
+
+        /* Container central para envelope e galeria circular */
+        .center-container {
+            position: relative;
+            width: 800px;  /* Tamanho maior para acomodar o envelope e as imagens */
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Envelope central grande */
+        .envelope {
+            width: 150px;
+            height: 100px;
+            background: #ff4d4d;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            transition: transform 0.2s;
+            font-size: 2.5em;
+            z-index: 1; /* Mantém o envelope na frente das imagens */
+        }
+
+        .envelope:hover {
+            transform: scale(1.1);
+        }
+
+        .envelope:after {
+            content: '📩';
+        }
+
+        /* Frase visível abaixo do envelope */
+        .message {
+            display: none;
+            position: absolute;
+            top: 140px; /* Posição abaixo do envelope */
+            font-size: 1.5em;
+            color: #333;
+            width: 100%;
+            text-align: center;
+            z-index: 2; /* Garante que a frase fique acima do envelope */
+        }
+
+        .message p {
+            margin: 5px 0; /* Margem entre os parágrafos */
+        }
+
+        /* Posicionamento das imagens ao redor do envelope em círculo */
+        .gallery {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none; /* Inicialmente invisível */
+        }
+
+        .gallery img {
+            width: 150px;  /* Aumenta o tamanho das imagens */
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            transition: transform 0.3s;
+            z-index: 1; /* Garante que as imagens fiquem acima do fundo */
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fundo personalizado -->
+    <div class="background"></div>
+
+    <!-- Container central -->
+    <div class="center-container">
+        <!-- Frase que aparece ao clicar no envelope -->
+        <div class="message" id="message">
+            <p>fiz este site so para dizer que és muito</p>
+            <p>especial para mim e não te quero perder por</p>
+            <p>nada,desde que nos começamos a falar os meus dias tem sido melhores.</p>
+            <p>parece que o tempo passa de maneira diferente quando estamos juntos</p>
+            <p>e por favor nunca tenhas duvidas se eu gosto de ti,porque vou sempre gostar</p>
+            <br>
+            <br>
+            <br>   
+            <br>        
+            <br>    
+            <br>
+            <p>я тебе люблю</p>
+            <p>💖💖💖💖💖💖</p>
+            
+        </div>
+        
+        <!-- Envelope que mostra a frase ao clicar -->
+        <div class="envelope" onclick="mostrarMensagem()"></div>
+
+        <!-- Galeria de fotos em círculo ao redor do envelope -->
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <script>
+        // Função para mostrar a mensagem ao clicar no envelope
+        function mostrarMensagem() {
+            const message = document.getElementById('message');
+            const gallery = document.getElementById('gallery');
+            
+            // Exibe a mensagem
+            message.style.display = 'block';
+            
+            // Exibe as imagens
+            gallery.style.display = 'block';
+            
+            // Carrega as imagens ao redor do envelope
+            carregarImagens();
+        }
+
+        // Função para carregar imagens em círculo ao redor do envelope
+        function carregarImagens() {
+            const gallery = document.getElementById('gallery');
+            const numImages = 8; // Quantidade de imagens
+            const radius = 400;  // Raio do círculo aumentado para afastar ainda mais as imagens do envelope
+
+            // Limpa qualquer imagem existente antes de adicionar novas
+            gallery.innerHTML = '';
+
+            for (let i = 0; i < numImages; i++) {
+                const img = document.createElement('img');
+                img.src = `C:\\Users\\Miguel Lima\\Desktop\\Nova pasta (2)\\site\\foto${i + 1}.jpeg`; // Caminho das imagens locais (ex: imagens/foto1.jpg)
+                img.alt = `Foto ${i + 1}`;
+                
+                // Posição em círculo
+                const angle = (i / numImages) * (2 * Math.PI); // Calcula o ângulo
+                const x = radius * Math.cos(angle); // Posição X em círculo
+                const y = radius * Math.sin(angle); // Posição Y em círculo
+                
+                img.style.left = `${400 + x - 75}px`; // Ajusta a posição X para centralizar com base na largura
+                img.style.top = `${400 + y - 75}px`;  // Ajusta a posição Y para centralizar com base na altura
+                
+                gallery.appendChild(img);
+            }
+        }
+    </script>
+</body>
+</html>
